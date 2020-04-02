@@ -1,0 +1,4 @@
+include versioneer.py
+include pyenvbuilder/_version.py
+include README.md
+include LICENSE.md
