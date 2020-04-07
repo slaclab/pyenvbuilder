@@ -6,14 +6,14 @@ import logging
 from pyenvbuilder import __version__
 
 
-LOGGER = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 
 def launch(log_level="INFO"):
     '''
     PyEnvBuilder's Launcher
     '''
-    pyenvbuilder_logger = logging.getLogger('')
+    pyenvbuilder_logger = logging.getLogger('pyenvbuilder')
     handler = logging.StreamHandler()
     formatter = logging.Formatter(
         '[%(asctime)s] [%(levelname)s] - %(message)s')
