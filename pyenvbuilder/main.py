@@ -4,12 +4,14 @@ pyenvbuilder's commands
 import argparse
 import logging
 from pyenvbuilder import __version__
+from .commands import check
 
 
 logger = logging.getLogger(__name__)
+COMMANDS = [check]
 
 
-def launch(log_level="INFO"):
+def launch(command=None, files=[], log_level="INFO"):
     '''
     PyEnvBuilder's Launcher
     '''
@@ -22,6 +24,9 @@ def launch(log_level="INFO"):
     pyenvbuilder_logger.setLevel(log_level)
     handler.setLevel(log_level)
 
+    if command == 'check':
+        check(files)
+
 
 def parse_arguments(*args, **kwargs):
     '''
@@ -30,6 +35,9 @@ def parse_arguments(*args, **kwargs):
 
     project_desc = "Python Environment Builder"
     parser = argparse.ArgumentParser(description=project_desc)
+
+    subparsers = parser.add_subparsers(
+        help='command', dest='command')
 
     parser.add_argument(
         '--version', action='version',
@@ -41,6 +49,12 @@ def parse_arguments(*args, **kwargs):
         choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'],
         default='INFO',
         help='configure log level')
+
+    check_parser = subparsers.add_parser(
+        'check',
+        help='Validate and YAML file or a directory of YAML files')
+    check_parser.add_argument(
+        'files', nargs='*')
 
     return parser.parse_args(*args, **kwargs)
 
