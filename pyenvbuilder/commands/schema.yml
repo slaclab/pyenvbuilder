@@ -10,7 +10,9 @@ properties:
         pip_packages:
                 type: array
         tests:
-                type: string
+                type: array
+                items:
+                        type: string
 aditionalProperties: false
 required: [
         'name',
