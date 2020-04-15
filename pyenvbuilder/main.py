@@ -4,12 +4,11 @@ pyenvbuilder is a tool for creating and deploying python environments
 import argparse
 import logging
 from pyenvbuilder import __version__
-from .commands import check
-
+from .commands.check import Check
 
 logger = logging.getLogger(__name__)
 
-COMMANDS = {'check': check}
+COMMANDS = {'check': Check()}
 
 
 def launch(command, **kwargs):
@@ -34,7 +33,7 @@ def launch(command, **kwargs):
 
     cmd = COMMANDS.get(command)
     if cmd is not None:
-        cmd(**kwargs)
+        cmd.run(**kwargs)
     else:
         commands = [k for k in COMMANDS.keys()]
         logger.info('Provide pyenvbuilder with a command: {}'.format(commands))
