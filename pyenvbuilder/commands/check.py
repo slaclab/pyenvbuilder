@@ -80,7 +80,8 @@ class Check(Command):
                 logger.error('Unexpected error: {}'.format(e.errno))
         except exceptions.ValidationError as err:
             msg = (
-                'YAML Validation Error in {} for Validator: {} {}'
-                .format(yml_file, err.validator, err.validator_value))
+                'YAML Validation Error in {}:\n {}'
+                .format(yml_file, err.message))
             logger.error(msg)
+
             return False, msg

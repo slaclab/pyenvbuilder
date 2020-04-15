@@ -7,8 +7,12 @@ properties:
                 type: string
         conda_packages:
                 type: array
+                items:
+                       type: string
         pip_packages:
                 type: array
+                items:
+                        type: string
         tests:
                 type: array
                 items:
