@@ -9,12 +9,10 @@ class Command(object):
         self.name = name
         self.summary = summary
 
-    @staticmethod
-    def add_args(args):
+    def add_args(self, args):
         raise NotImplementedError
         return
 
-    @staticmethod
-    def run(**kwargs):
+    def run(self, **kwargs):
         raise NotImplementedError
         return

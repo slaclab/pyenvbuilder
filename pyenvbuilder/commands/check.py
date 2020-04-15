@@ -11,12 +11,14 @@ from pathlib import Path
 from .interface import Command
 
 
+logger = logging.getLogger(__name__)
+
+
 class Check(Command):
     def __init__(self):
         self.name = 'check'
         self.help = 'Validates an YAML file or multiple files'
 
-        self.logger = logging.getLogger(__name__)
         self.schema_dir = Path(__file__).absolute().parents[0] / 'schema.yml'
 
     def run(self, **kwargs):
@@ -40,8 +42,7 @@ class Check(Command):
                         if f.suffix in exts:
                             self.yaml_validator(f)
             else:
-                self.logger.error(
-                    'Invalid path or file name: {}'.format(arg_path))
+                logger.error('Invalid path or file name: {}'.format(arg_path))
 
     def add_args(self, cmd_parser):
         cmd_parser.add_argument('files', nargs='+')
@@ -55,7 +56,7 @@ class Check(Command):
                 data = yaml.safe_load(f)
                 return data
             except yaml.YAMLError as err:
-                self.logger.error('Loading YAML file error:\n {}'.format(err))
+                logger.error('Loading YAML file error:\n {}'.format(err))
 
     def yaml_validator(self, yml_file):
         '''
@@ -68,18 +69,18 @@ class Check(Command):
             # returns None if no validation errors found
             is_valid = validate(yaml_file, schema_file)
             if is_valid is None:
-                self.logger.info('YAML file {} is Valid'.format(yml_file))
+                logger.info('YAML file {} is Valid'.format(yml_file))
                 return True, ''
         except OSError as e:
             if e.errno == errno.ENOENT:
-                self.logger.error('File not found when loading yaml file')
+                logger.error('File not found when loading yaml file')
             elif e.errno == errno.EACCES:
-                self.logger.error('Permission denied when loading yaml file')
+                logger.error('Permission denied when loading yaml file')
             else:
-                self.logger.error('Unexpected error: {}'.format(e.errno))
+                logger.error('Unexpected error: {}'.format(e.errno))
         except exceptions.ValidationError as err:
             msg = (
                 'YAML Validation Error in {} for Validator: {} {}'
                 .format(yml_file, err.validator, err.validator_value))
-            self.logger.error(msg)
+            logger.error(msg)
             return False, msg
