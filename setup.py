@@ -5,10 +5,13 @@ from os import path
 from setuptools import setup, find_packages
 import versioneer
 
-CUR_DIR = path.abspath(path.dirname(__file__))
+cur_dir = path.abspath(path.dirname(__file__))
 
-with open(path.join(CUR_DIR, 'README.md'), 'r', encoding='utf-8') as f:
-    LONG_DESCRIPTION = f.read()
+with open(path.join(cur_dir, 'README.md'), 'r', encoding='utf-8') as f:
+    long_description = f.read()
+
+with open(path.join(cur_dir, 'requirements.txt'), 'r', encoding='utf-8') as f:
+    requirements = f.read().split()
 
 setup(
     name='pyenvbuilder',
@@ -25,17 +28,17 @@ setup(
             'pyenvbuilder=pyenvbuilder.main:main',
         ]
     },
-
+    
+    install_requires=requirements,
     description='Python Environment Builder',
-    long_description=LONG_DESCRIPTION,
+    long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/slaclab/pyenvbuilder',
     license='BSD',
 
     classifiers=[
         'License :: OSI Approved :: BSD License',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
         'Operating System :: OS Independent',
     ]
 )

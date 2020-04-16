@@ -1,0 +1,25 @@
+---
+type: object
+properties:
+        name:
+                type: string
+        version:
+                type: string
+        conda_packages:
+                type: array
+                items:
+                       type: string
+        pip_packages:
+                type: array
+                items:
+                        type: string
+        tests:
+                type: array
+                items:
+                        type: string
+aditionalProperties: false
+required: [
+        'name',
+        'version',
+        'conda_packages'
+        ]
