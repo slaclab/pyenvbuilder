@@ -5,10 +5,11 @@ import argparse
 import logging
 from pyenvbuilder import __version__
 from .commands.check import Check
+from .commands.create import Create
 
 logger = logging.getLogger(__name__)
 
-COMMANDS = {'check': Check()}
+COMMANDS = {'check': Check(), 'create': Create()}
 
 
 def launch(command, **kwargs):
