@@ -3,9 +3,13 @@ Class for the create command
 '''
 import logging
 from string import Template
+import shutil
 import subprocess
 import stat
+import shlex
 from pathlib import Path
+import os
+import signal
 
 from .interface import Command
 from .check import Check
@@ -20,10 +24,20 @@ class Create(Command):
     def __init__(self):
         self.name = 'create'
         self.help = 'Creates an environment, given an YAML file'
+        self._conda_base_path = None
+        self._activate_script_path = None
+
+    def setup_conda(self):
+        conda_path = shutil.which('conda')
+        self._conda_base_path = Path(conda_path).parents[1]
+        self._activate_script_path = self._conda_base_path.joinpath(
+            'etc', 'profile.d', 'conda.sh'
+        )
 
     def run(self, **kwargs):
         # invoke conda to see if installed
         if validate_installed('conda')[0]:
+            self.setup_conda()
             # validate files' location
             files = locate_files(**kwargs)
             for f in files:
@@ -31,6 +45,7 @@ class Create(Command):
                 if check.yaml_validator(f)[0]:
                     data = check.yaml_loader(f)
                     if data:
+                        data['file_path'] = Path(f)
                         self.conda_create(data)
 
     def add_args(self, cmd_parser):
@@ -46,23 +61,57 @@ class Create(Command):
         conda_packages = ' '.join(data['conda_packages'])
         pip_packages = ' '.join(data['pip_packages'] or [])
 
+        versioned_path = data['file_path'].parent.joinpath(versioned_name).absolute()
+
         header_template = (
             '#!/bin/bash\n')
 
         conda_create_template = Template(
-            '$header\n'
-            'conda create -n $versioned_name -c conda-forge $conda_packages\n'
-            'source activate $versioned_name\n')
+           # '$header\n'
+            'conda create --yes -p $versioned_path -c conda-forge $conda_packages\n'
+            'source $activate_script\n'
+            'conda activate $versioned_path\n')
 
         pip_template = Template(
             'pip install $pip_packages\n')
 
+        pip_args = ''
+        if pip_packages.rstrip():
+            pip_args = pip_template.substitute(
+                pip_packages=pip_packages)
+
+        the_args = conda_create_template.substitute(
+                conda_packages=conda_packages, 
+                versioned_path=versioned_path, 
+            #    header=header_template,
+                activate_script=self._activate_script_path) + pip_args
+
+    #    print(the_args)
+      #  conda_process = subprocess.run(shlex.split(the_args), executable='/bin/bash')
+       # conda_process = subprocess.run(shlex.split(the_args))
+     #   command_list = the_args
+
+       # if conda_process.returncode == 0:
+       #     print('conda is done')
+       # pip_process = subprocess.run(shlex.split(f'{command_list}'))#, executable='/bin/bash')
+               # input=conda_process.stdout)
+        conda_proc = self.run_subprocess(the_args)
+       # if conda_proc.returncode == 0:
+       # out, err = conda_proc.communicate(pip_args)
+       # print(out)
+      #  print(err)
+            
+        os.killpg(conda_proc.pid, signal.SIGTERM)
+        print(conda_proc.returncode)
+       #     print(pip_process.stdout)
         file_name = 'create_script'
         try:
             with open(file_name, 'w') as f:
                 f.write(conda_create_template.substitute(
                     conda_packages=conda_packages,
-                    versioned_name=versioned_name, header=header_template))
+                    versioned_path=versioned_path, header=header_template,
+                    activate_script=self._activate_script_path
+                ))
                 if pip_packages.rstrip():
                     f.write(pip_template.substitute(
                         pip_packages=pip_packages))
@@ -84,10 +133,13 @@ class Create(Command):
         f = Path(file_script)
         f.chmod(f.stat().st_mode | stat.S_IEXEC)
         proc_args = Path(file_script).absolute()
-        print(proc_args)
 
         try:
-            subprocess.run(f'{proc_args}')
+           # subprocess.run(f'{proc_args}')
+           # subprocess.run()
+        #   logger.info(proc.stdout.decode())
+            print('')
+
             # this next guy runs fine but activates the base env instead
             # left it here to try more with it
             # procc = subprocess.run(
@@ -97,4 +149,13 @@ class Create(Command):
         except FileNotFoundError as err:
             logger.error(f'Some error here...FileNotFoundError: {err}')
         except OSError as err:
-            logger.error(f'Some errors are occuring here.....{err}')
+            logger.error(f'Some errors are occurring here.....{err}')
+
+    def run_subprocess(self, commands):
+        process = subprocess.Popen('/bin/bash', stdin=subprocess.PIPE,
+            encoding='utf8', shell=False)
+
+        out, err = process.communicate(commands)
+        return process
+
+
