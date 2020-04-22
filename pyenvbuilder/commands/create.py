@@ -23,6 +23,7 @@ class Create(Command):
         self.help = 'Creates an environment, given an YAML file'
         self._conda_base_path = None
         self._activate_script_path = None
+        self._skip_tests = False
 
     def setup_conda(self):
         conda_path = shutil.which('conda')
@@ -35,6 +36,7 @@ class Create(Command):
         # invoke conda to see if installed
         if validate_installed('conda')[0]:
             self.setup_conda()
+            self._skip_tests = kwargs.get('skip_tests')
             # validate files' location
             files = locate_files(**kwargs)
             for f in files:
@@ -56,7 +58,14 @@ class Create(Command):
         env_version = data['version']
         versioned_name = f'{env_name}_{env_version}'
         conda_packages = ' '.join(data['conda_packages'])
-        pip_packages = ' '.join(data['pip_packages'] or [])
+
+        # optional entries
+        pip_packages = ''
+        if 'pip_packages' in data.keys():
+            pip_packages = ' '.join(data['pip_packages'])
+        tests = ''
+        if 'tests' in data.keys():
+            tests = ' '.join(data['tests'])
 
         versioned_path = data['file_path'].parent.joinpath(
             versioned_name).absolute()
@@ -70,6 +79,8 @@ class Create(Command):
         pip_template = Template(
             'pip install $pip_packages\n')
 
+        tests_template = Template('$tests\n')
+
         command_args = conda_create_template.substitute(
                 conda_packages=conda_packages,
                 versioned_path=versioned_path,
@@ -79,8 +90,15 @@ class Create(Command):
                 pip_packages=pip_packages)
             command_args += pip_args
 
+        if tests.rstrip() and not self._skip_tests:
+            tests_args = tests_template.substitute(
+                versioned_path=versioned_path,
+                versioned_name=versioned_name, tests=tests)
+            command_args += tests_args
+
         conda_proc = self.run_subprocess(command_args)
-        logger.info(f'Conda create subprocess return: {conda_proc.returncode}')
+        logger.debug(
+            f'Conda create subprocess returm: {conda_proc.returncode}')
 
     def run_subprocess(self, commands):
         '''
