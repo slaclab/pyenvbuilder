@@ -19,7 +19,8 @@ class Check(Command):
         self.name = 'check'
         self.help = 'Validates an YAML file or multiple files'
 
-        self.schema_dir = Path(__file__).absolute().parents[0] / 'schema.yml'
+        self._schema_dir = Path(__file__).absolute().parents[0] / 'schema.yml'
+        self._schema_file = self.yaml_loader(self._schema_dir)
 
     def run(self, **kwargs):
         '''
@@ -59,14 +60,13 @@ class Check(Command):
         and returns True if valid, False otherwise
         '''
         try:
-            schema_file = self.yaml_loader(self.schema_dir)
             yaml_file = self.yaml_loader(yml_file)
             if yaml_file is None:
                 msg = (f'Cannot validate an empty YAML file: {yml_file}')
                 logger.error(msg)
                 return False, msg
             # returns None if no validation errors found
-            is_valid = validate(yaml_file, schema_file)
+            is_valid = validate(yaml_file, self._schema_file)
             if is_valid is None:
                 logger.info('YAML file {} is Valid'.format(yml_file))
                 return True, ''

@@ -26,6 +26,7 @@ class Create(Command):
         self._conda_base_path = None
         self._activate_script_path = None
         self._skip_tests = False
+        self._conda = 'conda'
 
     def setup_conda(self):
         conda_path = shutil.which('conda')
@@ -36,20 +37,36 @@ class Create(Command):
 
     def run(self, **kwargs):
         # invoke conda to see if installed
-        if validate_installed('conda')[0]:
+        if validate_installed(self._conda)[0]:
             self.setup_conda()
             self._skip_tests = kwargs.get('skip_tests')
             # validate files' location
             files = locate_files(**kwargs)
-            for f in files:
-                # check if the files are valid YAML files
-                if check.yaml_validator(f)[0]:
+            # check if the files are valid YAML files
+            if self.check_files(files):
+                for f in files:
                     data = check.yaml_loader(f)
                     if data:
                         data['file_path'] = Path(f)
                         self.conda_create(data)
+            else:
+                # must have found an invalid YAML file
+                sys.exit(f'Application exiting... yaml validation failed')
         else:
-            sys.exit('print here the error')
+            sys.exit(
+                'Application exiting with err:' +
+                f'{validate_installed(self._conda)[1]}')
+
+    def check_files(self, file_list):
+        '''
+        Validate all the files in the list
+        Return true only if all files are valid
+        '''
+        # check.yaml_validator(takes one file)
+        are_valid = False
+        for n in map(check.yaml_validator, file_list):
+            are_valid = n[0]
+        return are_valid
 
     def add_args(self, cmd_parser):
         cmd_parser.add_argument(
@@ -73,7 +90,7 @@ class Create(Command):
 
         conda_create_template = Template(
             'conda create --yes -p $versioned_path -c' +
-            'conda-forge $conda_packages\n'
+            'conda-forge $conda_packages conda-pack\n'
             'source $activate_script\n'
             'conda activate $versioned_path\n')
 
@@ -81,6 +98,8 @@ class Create(Command):
             'pip install $pip_packages\n')
 
         tests_template = Template(
+            'echo \n\n'
+            'echo ------ TESTING ----- \n'
             'source $activate_script\n'
             'conda activate $versioned_path\n'
             '$tests\n')
@@ -101,14 +120,8 @@ class Create(Command):
 
         '''
          go through all the tests and run a subprocess for each test
-         not the best solution here....
-         it would have been nice if the subprocess.Popen() would not
-         terminate the subprocess if End of File, we could have
-         send the tests to the conda_proc and it would have been done
-         all with one subprocess, insted when we do that, it only runs
-         the first test, reaches end of file... process terminates
         '''
-        # TODO probably need to change this approach?
+        # TODO find a better approach here
         if not self._skip_tests and 'tests' in data.keys():
             report = ''
             for t in data['tests']:
@@ -143,7 +156,6 @@ class Create(Command):
         except KeyboardInterrupt:
             process.send_signal(signal.SIGINT)
             logger.error('Received SIGINT signal, exeting...')
-            sys.exit(0)
         except OSError as e:
             logger.error(
                 f'Subprocess tryig to execute non-existing file: {e}')
