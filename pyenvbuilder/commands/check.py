@@ -26,7 +26,7 @@ class Check(Command):
         '''
         Validates if proper files or directories were passed in
         '''
-        files = locate_files(**kwargs)
+        files = locate_files(kwargs.get('files'))
         for f in files:
             self.yaml_validator(f)
 
@@ -50,7 +50,7 @@ class Check(Command):
             if err.errno == errno.ENOENT:
                 logger.error('File not found when loading yaml file')
             elif err.errno == errno.EACCES:
-                logger.error('Permission denide when loading yaml file')
+                logger.error('Permission denied when loading yaml file')
             else:
                 logger.error('OS error: {err}')
 

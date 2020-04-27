@@ -41,7 +41,7 @@ class Create(Command):
             self.setup_conda()
             self._skip_tests = kwargs.get('skip_tests')
             # validate files' location
-            files = locate_files(**kwargs)
+            files = locate_files(kwargs.get('files'))
             # check if the files are valid YAML files
             if self.check_files(files):
                 for f in files:
@@ -51,7 +51,7 @@ class Create(Command):
                         self.conda_create(data)
             else:
                 # must have found an invalid YAML file
-                sys.exit(f'Application exiting... yaml validation failed')
+                sys.exit('Application exiting... yaml validation failed')
         else:
             sys.exit(
                 'Application exiting with err:' +

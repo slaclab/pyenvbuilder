@@ -1,32 +1,48 @@
 import logging
-import subprocess
+import shutil
 from pathlib import Path
 
 
 logger = logging.getLogger(__name__)
 
 
-def validate_installed(args):
-    '''
-    Invokes the args and returns True if successful
-    '''
-    try:
-        if subprocess.run(args, check=True, stdout=subprocess.DEVNULL):
-            return True, f''
-    except subprocess.CalledProcessError as err:
-        logger.error(err)
-        return False, err
-    except FileNotFoundError:
-        msg = f'{args} not found, please install {args} before proceeding.'
+def validate_installed(cmd):
+    """
+    Locates the cmd executable
+
+    Parameters
+    ----------
+    cmd : str
+        Command to be tested
+
+    Returns
+    -------
+    tuple
+        Boolean status and string status message
+    """
+    locate_cmd = shutil.which(cmd)
+    if locate_cmd is None:
+        msg = f'{cmd} not found, please install {cmd} before proceeding.'
         logger.error(msg)
         return False, msg
+    else:
+        return True, ''
 
 
 def validate_path(args):
-    '''
-    Validates if args is valid path
-    Returns True/False and returns if is_file/is_dir
-    '''
+    """
+    Validates if the passed-in argument is a valid path
+
+    Parameters
+    ----------
+    args: str
+        Path to be validated
+
+    Returns
+    -------
+    tuple
+        Boolean status and dict to identify if the path is a file or directory
+    """
     f_path = Path(args)
     ret_arg = {'is_file': False, 'is_dir': False}
 
@@ -40,13 +56,20 @@ def validate_path(args):
         return False, ret_arg
 
 
-def locate_files(**kwargs):
-    '''
-    Verifies if the folder that is passed in contains yaml files
-    Returns a list of yaml files
-    If only one file is passed, a list of one file will be returned
-    '''
-    files = kwargs.get('files', [])
+def locate_files(files):
+    """
+    If one file is passed in: verifies if it is a valid yaml file
+    If folder is passed in : verifies if the folder contains valid yaml files
+
+    Parameters
+    ----------
+    files: list
+
+    Returns
+    -------
+    list
+        List of validated yaml files
+    """
     file_list = []
 
     for f in files:
@@ -71,7 +94,7 @@ def locate_files(**kwargs):
 
 def is_yaml(yml_file):
     '''
-    Validate is the file is a .yml or .yaml file
+    Validates if the file is a .yml or .yaml file
     '''
     yml_path = Path(yml_file)
     extensions = ['.yml', '.yaml']
