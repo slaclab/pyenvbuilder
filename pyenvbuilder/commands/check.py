@@ -1,5 +1,4 @@
 '''
-
 Class for YAML file validation
 '''
 from codecs import open
@@ -9,6 +8,7 @@ import yaml
 import logging
 from pathlib import Path
 from .interface import Command
+from ..utils import locate_files
 
 
 logger = logging.getLogger(__name__)
@@ -19,30 +19,16 @@ class Check(Command):
         self.name = 'check'
         self.help = 'Validates an YAML file or multiple files'
 
-        self.schema_dir = Path(__file__).absolute().parents[0] / 'schema.yml'
+        self._schema_dir = Path(__file__).absolute().parents[0] / 'schema.yml'
+        self._schema_file = self.yaml_loader(self._schema_dir)
 
     def run(self, **kwargs):
         '''
         Validates if proper files or directories were passed in
         '''
-        # get the 'files' from the dictionary
-        get_files = kwargs.get('files', [])
-        for file_arg in get_files:
-            arg_path = Path(file_arg)
-            # support both YAML file formats
-            exts = ['.yml', '.yaml']
-
-            if arg_path.exists():
-                # validates one YAML filei
-                if arg_path.is_file() and arg_path.suffix in exts:
-                    self.yaml_validator(arg_path)
-                # validates a directory of YAML files
-                elif arg_path.is_dir():
-                    for f in Path(arg_path).rglob('*'):
-                        if f.suffix in exts:
-                            self.yaml_validator(f)
-            else:
-                logger.error('Invalid path or file name: {}'.format(arg_path))
+        files = locate_files(kwargs.get('files'))
+        for f in files:
+            self.yaml_validator(f)
 
     def add_args(self, cmd_parser):
         cmd_parser.add_argument('files', nargs='+')
@@ -51,12 +37,22 @@ class Check(Command):
         '''
         Loads an yaml file and returns its contents
         '''
-        with open(file_path, 'r') as f:
-            try:
-                data = yaml.safe_load(f)
-                return data
-            except yaml.YAMLError as err:
-                logger.error('Loading YAML file error:\n {}'.format(err))
+        try:
+            with open(file_path, 'r') as f:
+                try:
+                    data = yaml.safe_load(f)
+                    if data is None:
+                        logger.warning(f'Loading empty file: {f.name}')
+                    return data
+                except yaml.YAMLError as err:
+                    logger.error('Loading YAML file error:\n {}'.format(err))
+        except OSError as err:
+            if err.errno == errno.ENOENT:
+                logger.error('File not found when loading yaml file')
+            elif err.errno == errno.EACCES:
+                logger.error('Permission denied when loading yaml file')
+            else:
+                logger.error('OS error: {err}')
 
     def yaml_validator(self, yml_file):
         '''
@@ -64,24 +60,19 @@ class Check(Command):
         and returns True if valid, False otherwise
         '''
         try:
-            schema_file = self.yaml_loader(self.schema_dir)
             yaml_file = self.yaml_loader(yml_file)
+            if yaml_file is None:
+                msg = (f'Cannot validate an empty YAML file: {yml_file}')
+                logger.error(msg)
+                return False, msg
             # returns None if no validation errors found
-            is_valid = validate(yaml_file, schema_file)
+            is_valid = validate(yaml_file, self._schema_file)
             if is_valid is None:
                 logger.info('YAML file {} is Valid'.format(yml_file))
                 return True, ''
-        except OSError as e:
-            if e.errno == errno.ENOENT:
-                logger.error('File not found when loading yaml file')
-            elif e.errno == errno.EACCES:
-                logger.error('Permission denied when loading yaml file')
-            else:
-                logger.error('Unexpected error: {}'.format(e.errno))
         except exceptions.ValidationError as err:
             msg = (
                 'YAML Validation Error in {}:\n {}'
                 .format(yml_file, err.message))
             logger.error(msg)
-
             return False, msg

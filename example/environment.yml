@@ -1,0 +1,16 @@
+name: python2.7env
+version: v0.0
+conda_packages:
+        - python=2.7
+        - alembic
+        - cheetah
+        - click
+        - cothread
+        - cx_Oracle
+pip_packages:
+        - backports.shutil-get-terminal-size
+        - backports.ssl-match-hostname
+        - git+git://github.com/slaclab/subprocessca
+        - git+git://github.com/slaclab/slacepics
+tests:
+        - python tests/test.py

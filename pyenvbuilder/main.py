@@ -3,12 +3,14 @@ pyenvbuilder is a tool for creating and deploying python environments
 '''
 import argparse
 import logging
+import sys
 from pyenvbuilder import __version__
 from .commands.check import Check
+from .commands.create import Create
 
 logger = logging.getLogger(__name__)
 
-COMMANDS = {'check': Check()}
+COMMANDS = {'check': Check(), 'create': Create()}
 
 
 def launch(command, **kwargs):
@@ -72,3 +74,5 @@ def main():
     args = parse_arguments()
     kwargs = vars(args)
     launch(**kwargs)
+
+    sys.exit(0)
