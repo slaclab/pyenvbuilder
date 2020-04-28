@@ -7,10 +7,11 @@ import sys
 from pyenvbuilder import __version__
 from .commands.check import Check
 from .commands.create import Create
+from .commands.pack import Pack
 
 logger = logging.getLogger(__name__)
 
-COMMANDS = {'check': Check(), 'create': Create()}
+COMMANDS = {'check': Check(), 'create': Create(), 'pack': Pack()}
 
 
 def launch(command, **kwargs):
