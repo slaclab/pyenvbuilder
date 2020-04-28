@@ -4,15 +4,13 @@ Class for the create command
 import logging
 from string import Template
 import shutil
-import subprocess
 import sys
-import signal
 from pathlib import Path
 
 
 from .interface import Command
 from .check import Check
-from ..utils import validate_installed, locate_files
+from ..utils import validate_installed, locate_files, run_subprocess
 
 
 logger = logging.getLogger(__name__)
@@ -37,7 +35,7 @@ class Create(Command):
 
     def run(self, **kwargs):
         # invoke conda to see if installed
-        if validate_installed(self._conda)[0]:
+        if validate_installed(self._conda):
             self.setup_conda()
             self._skip_tests = kwargs.get('skip_tests')
             # validate files' location
@@ -58,10 +56,18 @@ class Create(Command):
                 f'{validate_installed(self._conda)[1]}')
 
     def check_files(self, file_list):
-        '''
-        Validate all the files in the list
-        Return true only if all files are valid
-        '''
+        """
+        Validates all the files in the list
+
+        Parameters
+        ----------
+        file_list: list
+
+        Returns
+        -------
+        Boolean
+            Status if all files are valid
+        """
         # check.yaml_validator(takes one file)
         are_valid = False
         for n in map(check.yaml_validator, file_list):
@@ -114,7 +120,7 @@ class Create(Command):
                 pip_packages=pip_packages)
             command_args += pip_args
 
-        conda_proc = self.run_subprocess(command_args)
+        conda_proc = run_subprocess(command_args)
         logger.info(
             f'Conda subprocess return code: {conda_proc.returncode}')
 
@@ -128,42 +134,7 @@ class Create(Command):
                 test_args = tests_template.substitute(
                     activate_script=self._activate_script_path,
                     versioned_path=versioned_path, tests=t)
-                test_proc = self.run_subprocess(test_args)
+                test_proc = run_subprocess(test_args)
 
                 report += f'TEST {t} return code: {test_proc.returncode}\n'
             logger.info(report)
-
-    def run_subprocess(self, commands):
-        '''
-        Opens a /bin/bash subprocess
-        That subprocess then executes the passed-in commands
-        '''
-        try:
-            process = subprocess.Popen(
-                '/bin/bash', stdin=subprocess.PIPE, encoding='utf8')
-
-            out, err = process.communicate(commands)
-            logger.debug(f'Conda create subprocess: {out}')
-            logger.debug(f'Subprocess communicate: {err}')
-            return process
-
-        except subprocess.CalledProcessError:
-            logger.error(
-                f'Called process returned a non-zero return code')
-        except subprocess.TimeoutExpiredError:
-            logger.error(
-                f'Subprocess, timeout expired before the process exited')
-        except KeyboardInterrupt:
-            process.send_signal(signal.SIGINT)
-            logger.error('Received SIGINT signal, exeting...')
-        except OSError as e:
-            logger.error(
-                f'Subprocess tryig to execute non-existing file: {e}')
-        except ValueError:
-            logger.error(
-                f'Subprocess, invalid argument passed in')
-        except subprocess.SubprocessError as e:
-            logger.error(e)
-        finally:
-            if process:
-                process.kill()

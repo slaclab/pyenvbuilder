@@ -1,5 +1,7 @@
 import logging
 import shutil
+import subprocess
+import signal
 from pathlib import Path
 
 
@@ -29,13 +31,13 @@ def validate_installed(cmd):
         return True, ''
 
 
-def validate_path(args):
+def validate_path(file_name):
     """
     Validates if the passed-in argument is a valid path
 
     Parameters
     ----------
-    args: str
+    file_name: str
         Path to be validated
 
     Returns
@@ -43,7 +45,7 @@ def validate_path(args):
     tuple
         Boolean status and dict to identify if the path is a file or directory
     """
-    f_path = Path(args)
+    f_path = Path(file_name)
     ret_arg = {'is_file': False, 'is_dir': False}
 
     if f_path.exists():
@@ -102,3 +104,43 @@ def is_yaml(yml_file):
         return True
     else:
         return False
+
+
+def run_subprocess(commands):
+    """
+    Opens a /bin/bash subproces
+    This subprocess then executes the passed-in commands
+
+    Parameters
+    ----------
+    commands: string
+    """
+    try:
+        process = subprocess.Popen(
+            '/bin/bash', stdin=subprocess.PIPE, encoding='utf8')
+
+        out, err = process.communicate(commands)
+        logger.debug(f'Conda create subprocess: {out}')
+        logger.debug(f'Subprocess communicate: {err}')
+        return process
+
+    except subprocess.CalledProcessError:
+        logger.error(
+            f'Called process returned a non-zero return code')
+    except subprocess.TimeoutExpiredError:
+        logger.error(
+            f'Subprocess, timeout expired before the process exited')
+    except KeyboardInterrupt:
+        process.send_signal(signal.SIGINT)
+        logger.error('Received SIGINT signal, exeting...')
+    except OSError as e:
+        logger.error(
+            f'Subprocess tryig to execute non-existing file: {e}')
+    except ValueError:
+        logger.error(
+            f'Subprocess, invalid argument passed in')
+    except subprocess.SubprocessError as e:
+        logger.error(e)
+    finally:
+        if process:
+            process.kill()
