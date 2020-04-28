@@ -144,3 +144,11 @@ def run_subprocess(commands):
     finally:
         if process:
             process.kill()
+
+
+def setup_conda():
+    conda_path = shutil.which('conda')
+    conda_base_path = Path(conda_path).parents[1]
+    activate_script_path = conda_base_path.joinpath(
+        'etc', 'profile.d', 'conda.sh')
+    return activate_script_path

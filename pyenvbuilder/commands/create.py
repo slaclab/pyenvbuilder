@@ -3,14 +3,14 @@ Class for the create command
 '''
 import logging
 from string import Template
-import shutil
 import sys
 from pathlib import Path
 
 
 from .interface import Command
 from .check import Check
-from ..utils import validate_installed, locate_files, run_subprocess
+from ..utils import (
+    validate_installed, locate_files, run_subprocess, setup_conda)
 
 
 logger = logging.getLogger(__name__)
@@ -21,22 +21,14 @@ class Create(Command):
     def __init__(self):
         self.name = 'create'
         self.help = 'Creates an environment, given an YAML file'
-        self._conda_base_path = None
         self._activate_script_path = None
         self._skip_tests = False
         self._conda = 'conda'
 
-    def setup_conda(self):
-        conda_path = shutil.which('conda')
-        self._conda_base_path = Path(conda_path).parents[1]
-        self._activate_script_path = self._conda_base_path.joinpath(
-            'etc', 'profile.d', 'conda.sh'
-        )
-
     def run(self, **kwargs):
         # invoke conda to see if installed
         if validate_installed(self._conda):
-            self.setup_conda()
+            self._activate_script_path = setup_conda()
             self._skip_tests = kwargs.get('skip_tests')
             # validate files' location
             files = locate_files(kwargs.get('files'))
