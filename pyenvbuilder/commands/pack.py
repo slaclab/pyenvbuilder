@@ -4,7 +4,6 @@ Class for the pack-command
 import logging
 from pathlib import Path
 from string import Template
-import shutil
 from .interface import Command
 from ..utils import validate_path, run_subprocess, setup_conda
 
@@ -57,14 +56,9 @@ class Pack(Command):
             'conda deactivate\n'
             'conda remove -p $env_path --all --yes\n')
 
-        pack_arguments = ''
-
-        if self._keep_env:
-            pack_arguments = pack_keep_template.substitute(
-                env_path=env_path,
-                activate_script=self._activate_script_path)
-        else:
-            pack_arguments = pack_template.substitute(
+        command_template = (
+            pack_keep_template if self._keep_env else pack_template)
+        pack_arguments = command_template.substitute(
                 env_path=env_path,
                 activate_script=self._activate_script_path)
 
