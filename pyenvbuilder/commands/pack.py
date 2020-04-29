@@ -25,6 +25,8 @@ class Pack(Command):
         for e in envs:
             if validate_path(e)[0]:
                 self.conda_pack(e)
+            else:
+                logger.error(f'When packing could not validate path of {e}')
 
     def add_args(self, cmd_parser):
         cmd_parser.add_argument(

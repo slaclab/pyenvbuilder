@@ -8,10 +8,12 @@ from pyenvbuilder import __version__
 from .commands.check import Check
 from .commands.create import Create
 from .commands.pack import Pack
+from .commands.unpack import Unpack
 
 logger = logging.getLogger(__name__)
 
-COMMANDS = {'check': Check(), 'create': Create(), 'pack': Pack()}
+COMMANDS = {
+    'check': Check(), 'create': Create(), 'pack': Pack(), 'unpack': Unpack()}
 
 
 def launch(command, **kwargs):
