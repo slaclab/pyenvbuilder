@@ -21,7 +21,7 @@ class Unpack(Command):
             if validate_path(e)[0]:
                 self.unpack(e)
             else:
-                logger.error(f'When unpacking could not validate {e}')
+                logger.error(f'When unpacking could not validate path {e}')
 
     def add_args(self, cmd_parser):
         cmd_parser.add_argument(
@@ -39,6 +39,7 @@ class Unpack(Command):
         env = env.split('.tar.gz')[0]
 
         unpack_template = Template(
+            'echo Unpacking the tarball for the environment $env_name\n'
             'mkdir $env_name\n'
             'tar -xzf $env_name.tar.gz -C $env_name\n'
             'source $env_name/bin/activate\n'
@@ -49,4 +50,4 @@ class Unpack(Command):
             env_name=env)
 
         unpack_proc = run_subprocess(unpack_arguments)
-        logger.info(f'Pack subprocess return code: {unpack_proc.returncode}')
+        logger.info(f'Unpack subprocess return code: {unpack_proc.returncode}')
