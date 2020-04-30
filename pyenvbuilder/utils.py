@@ -152,3 +152,33 @@ def setup_conda():
     activate_script_path = conda_base_path.joinpath(
         'etc', 'profile.d', 'conda.sh')
     return activate_script_path
+
+
+def get_destination(dir_path):
+    '''
+    Checks if it is a valid directory destination
+
+    Parameters
+    ----------
+    dir_path: string
+        Path of the destination directory
+
+    Returns
+    -------
+    tuple
+         Path of directory or None and error message
+    '''
+    abs_path = None
+    err_msg = ''
+    if dir_path is not None:
+        is_valid, path_type = validate_path(dir_path)
+        if is_valid:
+            if path_type['is_dir']:
+                abs_path = Path(dir_path).absolute()
+            else:
+                err_msg = f'{dir_path} is not a valid directory'
+                logger.error(err_msg)
+        else:
+            err_msg = f'{dir_path} is not a valid path'
+            logger.error(err_msg)
+    return abs_path, err_msg

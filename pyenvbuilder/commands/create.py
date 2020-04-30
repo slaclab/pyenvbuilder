@@ -10,7 +10,8 @@ from pathlib import Path
 from .interface import Command
 from .check import Check
 from ..utils import (
-    validate_installed, locate_files, run_subprocess, setup_conda)
+    validate_installed, locate_files,
+    run_subprocess, setup_conda, get_destination)
 
 
 logger = logging.getLogger(__name__)
@@ -24,6 +25,7 @@ class Create(Command):
         self._activate_script_path = None
         self._skip_tests = False
         self._conda = 'conda'
+        self._destination_dir = None
 
     def run(self, **kwargs):
         # invoke conda to see if installed
@@ -32,6 +34,17 @@ class Create(Command):
             self._skip_tests = kwargs.get('skip_tests')
             # validate files' location
             files = locate_files(kwargs.get('files'))
+
+            # validate destination location
+            dest = kwargs.get('dest')
+            if dest is not None:
+                dest_path, err_msg = get_destination(dest)
+                if dest_path is not None:
+                    self._destination_dir = dest_path
+                else:
+                    # exit if the user provided the --dest with an invalid path
+                    sys.exit(f'Exiting application with error: {err_msg}')
+
             # check if the files are valid YAML files
             if self.check_files(files):
                 for f in files:
@@ -71,6 +84,8 @@ class Create(Command):
             '--skip-tests', action='store_true', default=False)
         cmd_parser.add_argument(
             'files', nargs='+')
+        cmd_parser.add_argument(
+            '--dest', help='Destination directory')
 
     def conda_create(self, data):
         env_name = data['name']
@@ -83,14 +98,24 @@ class Create(Command):
         if 'pip_packages' in data.keys():
             pip_packages = ' '.join(data['pip_packages'])
 
+        # Handle the destination of the environment
+        env_path = None
+        destination_path = None
         versioned_path = data['file_path'].parent.joinpath(
             versioned_name).absolute()
+        if self._destination_dir is not None:
+            destination_path = self._destination_dir.joinpath(
+                versioned_name).absolute()
+        if destination_path is not None:
+            env_path = destination_path
+        else:
+            env_path = versioned_path
 
         conda_create_template = Template(
-            'conda create --yes -p $versioned_path -c' +
+            'conda create --yes -p $env_path -c' +
             'conda-forge $conda_packages conda-pack\n'
             'source $activate_script\n'
-            'conda activate $versioned_path\n')
+            'conda activate $env_path\n')
 
         pip_template = Template(
             'pip install $pip_packages\n')
@@ -99,12 +124,12 @@ class Create(Command):
             'echo \n\n'
             'echo ------ TESTING ----- \n'
             'source $activate_script\n'
-            'conda activate $versioned_path\n'
+            'conda activate $env_path\n'
             '$tests\n')
 
         command_args = conda_create_template.substitute(
             conda_packages=conda_packages,
-            versioned_path=versioned_path,
+            env_path=env_path,
             activate_script=self._activate_script_path)
 
         if pip_packages.rstrip():
@@ -125,7 +150,7 @@ class Create(Command):
             for t in data['tests']:
                 test_args = tests_template.substitute(
                     activate_script=self._activate_script_path,
-                    versioned_path=versioned_path, tests=t)
+                    env_path=env_path, tests=t)
                 test_proc = run_subprocess(test_args)
 
                 report += f'TEST {t} return code: {test_proc.returncode}\n'
