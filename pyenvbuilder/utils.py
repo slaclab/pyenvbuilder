@@ -84,7 +84,8 @@ def locate_files(files):
                 logger.error(f'{f} is not a valid .yml or .yaml file')
         # if a folder is passed in
         elif is_valid and f_type['is_dir']:
-            file_list = [ff for ff in Path(f).rglob('*') if ff and is_yaml(ff)]
+            file_list += [
+                ff for ff in Path(f).rglob('*') if ff and is_yaml(ff)]
             if not file_list:
                 logger.error(
                     f'The directory: {f} is either empty ' +
