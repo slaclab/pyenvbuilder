@@ -13,7 +13,6 @@ from ..utils import (
     validate_installed, locate_files,
     run_subprocess, setup_conda, get_destination)
 
-
 logger = logging.getLogger(__name__)
 check = Check()
 
@@ -123,9 +122,11 @@ class Create(Command):
         tests_template = Template(
             'echo \n\n'
             'echo ------ TESTING ----- \n'
+            'pushd $source_dir\n'
             'source $activate_script\n'
             'conda activate $env_path\n'
-            '$tests\n')
+            '$tests\n'
+            'popd\n')
 
         command_args = conda_create_template.substitute(
             conda_packages=conda_packages,
@@ -150,7 +151,8 @@ class Create(Command):
             for t in data['tests']:
                 test_args = tests_template.substitute(
                     activate_script=self._activate_script_path,
-                    env_path=env_path, tests=t)
+                    env_path=env_path, tests=t,
+                    source_dir=data['file_path'].parents[0])
                 test_proc = run_subprocess(test_args)
 
                 report += f'TEST {t} return code: {test_proc.returncode}\n'
