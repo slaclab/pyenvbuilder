@@ -25,6 +25,7 @@ class Create(Command):
         self._skip_tests = False
         self._conda = 'conda'
         self._destination_dir = None
+        self._current_dir = None
 
     def run(self, **kwargs):
         # invoke conda to see if installed
@@ -50,6 +51,7 @@ class Create(Command):
                     data = check.yaml_loader(f)
                     if data:
                         data['file_path'] = Path(f)
+                        self._current_dir = Path.cwd()
                         self.conda_create(data)
             else:
                 # must have found an invalid YAML file
@@ -100,7 +102,7 @@ class Create(Command):
         # Handle the destination of the environment
         env_path = None
         destination_path = None
-        versioned_path = data['file_path'].parent.joinpath(
+        versioned_path = self._current_dir.joinpath(
             versioned_name).absolute()
         if self._destination_dir is not None:
             destination_path = self._destination_dir.joinpath(
@@ -122,11 +124,11 @@ class Create(Command):
         tests_template = Template(
             'echo \n\n'
             'echo ------ TESTING ----- \n'
-            'pushd $source_dir\n'
+            'pushd $source_dir > /dev/null\n'
             'source $activate_script\n'
             'conda activate $env_path\n'
             '$tests\n'
-            'popd\n')
+            'popd > /dev/null\n')
 
         command_args = conda_create_template.substitute(
             conda_packages=conda_packages,
