@@ -2,6 +2,7 @@ import logging
 import shutil
 import subprocess
 import signal
+import sys
 from pathlib import Path
 
 
@@ -73,7 +74,6 @@ def locate_files(files):
         List of validated yaml files
     """
     file_list = []
-
     for f in files:
         is_valid, f_type = validate_path(f)
         # if only one file is passed in
@@ -91,7 +91,9 @@ def locate_files(files):
                     f'The directory: {f} is either empty ' +
                     'or does not contain any YAML files')
         else:
-            logger.error(f'Invalid path or file name: {f}')
+            err_msg = f'Invalid path or file name: {f}'
+            logger.error(err_msg)
+            sys.exit(f'Exiting with error:  {err_msg}')
     return file_list
 
 

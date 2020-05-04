@@ -34,7 +34,7 @@ class Create(Command):
             self._skip_tests = kwargs.get('skip_tests')
             # validate files' location
             files = locate_files(kwargs.get('files'))
-
+            self._current_dir = Path.cwd()
             # validate destination location
             dest = kwargs.get('dest')
             if dest is not None:
@@ -44,14 +44,12 @@ class Create(Command):
                 else:
                     # exit if the user provided the --dest with an invalid path
                     sys.exit(f'Exiting application with error: {err_msg}')
-
             # check if the files are valid YAML files
             if self.check_files(files):
                 for f in files:
                     data = check.yaml_loader(f)
                     if data:
                         data['file_path'] = Path(f)
-                        self._current_dir = Path.cwd()
                         self.conda_create(data)
             else:
                 # must have found an invalid YAML file
@@ -101,14 +99,11 @@ class Create(Command):
 
         # Handle the destination of the environment
         env_path = None
-        destination_path = None
         versioned_path = self._current_dir.joinpath(
             versioned_name).absolute()
         if self._destination_dir is not None:
-            destination_path = self._destination_dir.joinpath(
+            env_path = self._destination_dir.joinpath(
                 versioned_name).absolute()
-        if destination_path is not None:
-            env_path = destination_path
         else:
             env_path = versioned_path
 
