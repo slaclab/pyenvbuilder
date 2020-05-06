@@ -1,16 +1,33 @@
-.. PyEnvBuilder documentation master file, created by
-   sphinx-quickstart on Tue May  5 10:44:18 2020.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 PyEnvBuilder - Python Environment Builder 
-========================================
+=========================================
+PyEnvBuilder is an open source Python package that can be used to parse a well-defined YAML file and generate a packed conda environmnet, which can be later deployed and unpacked on different machines that do not require conda/python.
+
+The goal is to allow for more flexible, consistend and agile environmnet deplyments. 
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Getting Started
+
+   introduction.rst
 
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Installation
+
+   installation.rst
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Commands & Options
+
+   commands.rst
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Walkthrough
+
+   walkthrough.rst
 
 Indices and tables
 ==================
