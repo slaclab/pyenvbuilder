@@ -1,21 +1,20 @@
 PyEnvBuilder - Python Environment Builder 
 =========================================
-PyEnvBuilder is an open source Python package that can be used to parse a well-defined YAML file and generate a packed conda environmnet, which can be later deployed and unpacked on different machines that do not require conda/python.
+PyEnvBuilder is a python package that can be used to parse a well-defined YAML file and generate a packed conda environment, which can be later deployed and unpacked on different machines that do not require conda/python.
 
-The goal is to allow for more flexible, consistend and agile environmnet deplyments. 
+The goal is to allow for more flexible, consistent and agile environment deployments. 
 
 .. toctree::
    :maxdepth: 2
    :caption: Getting Started
 
-   introduction.rst
-
+   installation.rst
 
 .. toctree::
    :maxdepth: 1
-   :caption: Installation
+   :caption: Environment YAML File Setup
 
-   installation.rst
+   yaml_setup.rst
 
 .. toctree::
    :maxdepth: 1
@@ -25,13 +24,16 @@ The goal is to allow for more flexible, consistend and agile environmnet deplyme
 
 .. toctree::
    :maxdepth: 1
-   :caption: Walkthrough
+   :caption: PyEnvBuilder Walkthrough
 
    walkthrough.rst
 
-Indices and tables
-==================
+.. toctree:: 
+   :maxdepth: 1
+   :caption: Links
+   :hidden:
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   PyEnvBuilder GitHub <https://github.com/slaclab/pyenvbuilder.git> 
+
+   SLAC-wide GitHub <https://github.com/slaclab/>
+
