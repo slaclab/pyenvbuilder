@@ -12,8 +12,13 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../..'))
 import sphinx_rtd_theme
+import pyenvbuilder
+
+module_path = os.path.abspath('..')
+sys.path.insert(0, module_path)
+sys.path.insert(0, os.path.join(module_path, 'pyenvbuilder/commands/'))
+
 
 def setup(app):
     app.add_css_file(os.path.abspath('_static/theme.css'))
@@ -23,9 +28,10 @@ project = 'PyEnvBuilder'
 copyright = '2020, SLAC National Accelerator Laboratory'
 author = 'SLAC National Accelerator Laboratory'
 
+# The short X.Y version.
+version = pyenvbuilder.__version__
 # The full version, including alpha/beta/rc tags
-release = 'pyenvbuilder.__version__'
-
+release = pyenvbuilder.__version__
 
 # -- General configuration ---------------------------------------------------
 
@@ -34,6 +40,7 @@ release = 'pyenvbuilder.__version__'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon',
 ]
 
 # Add any paths that contain templates here, relative to this directory.

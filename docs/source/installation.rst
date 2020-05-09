@@ -25,10 +25,6 @@ You can also download the PyEnvBuilder's repository from `GitHub <https://github
 
 After you download PyEnvBuilder, enter the directory you saved it in, and run::
 
-	pip install .[all]
-
-or::
-
 	pip install -e .
 
 

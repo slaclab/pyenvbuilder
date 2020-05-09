@@ -22,13 +22,25 @@ Custom packages should use ``PYTHONPATH`` or should be added to one of the two l
 YAML File
 ----------
 
-	YAML file example:
-
-.. image:: _static/images/yaml.png
+.. figure:: _static/images/yaml.png
    :width: 600pt
    :align: center
+   :alt: YAML File Example
+
+   YAML file example
+
 
 The table below explains the attributes of the YAML file:
+
+.. Leaving this here because, just in case the table below does not work very well with LaTex
+.. .. csv-table:: YAML FIle Attributes
+..    :header: "Attributes", "Description", "Example", "Type", "Required"
+   
+..    "name", "name of the environment", "python3.7env", "string", "Yes"
+..    "version", "verion of the environment", "v1.0 or 1.0.0", "string", "Yes"
+..    "conda_packages", "packages to be installed through conda-forge channel", "\- python=3.7", "array", "Yes" 
+..    "pip_packages", "packages to be installed through pip", "\- pydm", "array", "No"
+..    "tests", "python scripts to test the environment", "\- python test.py", "array", No
 
 +----------------+------------------------------+-------------------+----------+----------+
 |Attributes      | Description                  | Example           | Type     | Required |
@@ -40,7 +52,7 @@ The table below explains the attributes of the YAML file:
 | conda_packages | packages to be installed     | \- python=3.7     | array    | Yes      |
 |                | through conda-forge channel  |                   |          |          |
 +----------------+------------------------------+-------------------+----------+----------+
-| pip_packages   | packages to be installed     | \- pyenvbuilder   | array    | No       | 
+| pip_packages   | packages to be installed     | \- pydm           | array    | No       | 
 |                | through pip                  |                   |          |          |
 +----------------+------------------------------+-------------------+----------+----------+
 | tests          | python scripts to test       | \- python test.py | array    | No       |

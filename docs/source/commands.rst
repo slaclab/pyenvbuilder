@@ -91,6 +91,7 @@ or to pack all the environments located in a directory run::
 
 		pyenvbuilder pack my_env --dest my_destination_path/
 
+---------------------
 
 unpack command
 ---------------
