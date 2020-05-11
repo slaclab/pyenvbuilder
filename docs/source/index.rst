@@ -26,6 +26,11 @@ The goal is to allow for more flexible, consistent and agile environment deploym
 
 .. toctree::
    :maxdepth: 1
+  
+   cmd.rst
+
+.. toctree::
+   :maxdepth: 1
    :caption: PyEnvBuilder Walk-through
 
    walkthrough.rst 
