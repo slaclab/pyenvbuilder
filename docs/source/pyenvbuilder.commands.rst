@@ -1,26 +1,7 @@
 Commands
 =============================
 
-Submodules
-----------
-
-pyenvbuilder.commands.check module
-----------------------------------
-
-.. automodule:: pyenvbuilder.commands.check
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-pyenvbuilder.commands.create module
------------------------------------
-
-.. automodule:: pyenvbuilder.commands.create
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-pyenvbuilder.commands.interface module
+Interface
 --------------------------------------
 
 .. automodule:: pyenvbuilder.commands.interface
@@ -28,7 +9,23 @@ pyenvbuilder.commands.interface module
    :undoc-members:
    :show-inheritance:
 
-pyenvbuilder.commands.pack module
+Check
+----------------------------------
+
+.. automodule:: pyenvbuilder.commands.check
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Create
+-----------------------------------
+
+.. automodule:: pyenvbuilder.commands.create
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Pack
 ---------------------------------
 
 .. automodule:: pyenvbuilder.commands.pack
@@ -36,19 +33,10 @@ pyenvbuilder.commands.pack module
    :undoc-members:
    :show-inheritance:
 
-pyenvbuilder.commands.unpack module
+Unpack
 -----------------------------------
 
 .. automodule:: pyenvbuilder.commands.unpack
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: pyenvbuilder.commands
    :members:
    :undoc-members:
    :show-inheritance:

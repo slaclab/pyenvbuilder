@@ -21,11 +21,6 @@ The goal is to allow for more flexible, consistent and agile environment deploym
 .. toctree::
    :maxdepth: 1
    :caption: Commands & Options
-
-   commands.rst
-
-.. toctree::
-   :maxdepth: 1
   
    cmd.rst
 
