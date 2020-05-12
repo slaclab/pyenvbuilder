@@ -1,0 +1,324 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Utils &mdash; PyEnvBuilder 0.0.0+50.g84847ec documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="/home/travis/build/slaclab/pyenvbuilder/docs/_static/theme.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Commands" href="pyenvbuilder.commands.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> PyEnvBuilder
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.0+50.g84847ec
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Environment YAML File Setup</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="yaml_setup.html">Environment YAML File Setup</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Commands &amp; Options</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cmd.html">PyEnvBuilder Command Line Utilities</a></li>
+</ul>
+<p class="caption"><span class="caption-text">PyEnvBuilder Walk-through</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="walkthrough.html">PyEnvBuilder Walk-through</a></li>
+</ul>
+<p class="caption"><span class="caption-text">PyEnvBuilder Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="pyenvbuilder.commands.html">Commands</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Utils</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/slaclab/pyenvbuilder.git">PyEnvBuilder GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/slaclab/">SLAC-wide GitHub</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyEnvBuilder</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pyenvbuilder.utils">
+<span id="utils"></span><h1>Utils<a class="headerlink" href="#module-pyenvbuilder.utils" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="pyenvbuilder.utils.get_destination">
+<code class="sig-prename descclassname">pyenvbuilder.utils.</code><code class="sig-name descname">get_destination</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dir_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.utils.get_destination" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if it is a valid directory destination</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dir_path</strong> (<em>string</em>) – Path of the destination directory</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Path of directory or None and error message</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyenvbuilder.utils.is_yaml">
+<code class="sig-prename descclassname">pyenvbuilder.utils.</code><code class="sig-name descname">is_yaml</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">yml_file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.utils.is_yaml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates if the file is a .yml or .yaml file</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyenvbuilder.utils.locate_files">
+<code class="sig-prename descclassname">pyenvbuilder.utils.</code><code class="sig-name descname">locate_files</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">files</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.utils.locate_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>If one file is passed in: verifies if it is a valid yaml file
+If folder is passed in : verifies if the folder contains valid yaml files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>files</strong> (<em>list</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of validated yaml files</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyenvbuilder.utils.run_subprocess">
+<code class="sig-prename descclassname">pyenvbuilder.utils.</code><code class="sig-name descname">run_subprocess</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">commands</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.utils.run_subprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens a /bin/bash subproces
+This subprocess then executes the passed-in commands</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>commands</strong> (<em>string</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyenvbuilder.utils.setup_conda">
+<code class="sig-prename descclassname">pyenvbuilder.utils.</code><code class="sig-name descname">setup_conda</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.utils.setup_conda" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="pyenvbuilder.utils.validate_installed">
+<code class="sig-prename descclassname">pyenvbuilder.utils.</code><code class="sig-name descname">validate_installed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cmd</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.utils.validate_installed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Locates the cmd executable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cmd</strong> (<em>str</em>) – Command to be tested</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Boolean status and string status message</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyenvbuilder.utils.validate_path">
+<code class="sig-prename descclassname">pyenvbuilder.utils.</code><code class="sig-name descname">validate_path</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.utils.validate_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates if the passed-in argument is a valid path</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<em>str</em>) – Path to be validated</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Boolean status and dict to identify if the path is a file or directory</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="pyenvbuilder.commands.html" class="btn btn-neutral float-left" title="Commands" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, SLAC National Accelerator Laboratory
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    
+
+  <style>
+	.wy-nav-content { max-width: none; }
+  </style>
+
+
+</body>
+</html>
