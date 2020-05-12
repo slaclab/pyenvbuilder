@@ -44,7 +44,7 @@ def launch(command, **kwargs):
         logger.info('Provide pyenvbuilder with a command: {}'.format(commands))
 
 
-def parse_arguments(*args, **kwargs):
+def get_parser():
     '''
     Defines shell commands
     '''
@@ -70,6 +70,11 @@ def parse_arguments(*args, **kwargs):
         cmd_parser = subparsers.add_parser(cmd.name, help=cmd.help)
         cmd.add_args(cmd_parser)
 
+    return parser
+
+
+def parse_arguments(*args, **kwargs):
+    parser = get_parser()
     return parser.parse_args(*args, **kwargs)
 
 

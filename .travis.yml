@@ -1,0 +1,42 @@
+language: python
+matrix: 
+  include:
+    - name: python3.6
+      python: 3.6 
+      env: 
+        - BUILD_DOCS=1
+    - name: python3.7
+      python: 3.7
+
+# Gives doctr the generated key 
+sudo: false
+env:
+  global:
+    secure: "HGz28ErtsRAp8sUwpfv0dQrTsabRe98zFPwLG8yoGpi3sUj6xlIkd/D0i7v3l/SmQLg2rfZjs5slC3IlUJIHuI6TnJttebeTAL1rPlfJvR9dc3I2c8MDvWntTbMx3xVuEKHuD/7l9Map8keJsKHKHNx8XrLImJ35nfNYBPp896Fq0P38ZPnFlHJjynHUrPnUpFEOBTOd1CfzLPTYDfZzoSyqgiyvI+2ieWuG+QUT9pHtQFEwrPP5lop6Cub2lz0o43LKy6oOtBjbWx+txe/D1Pk9F/NfLdZJ1a/S3bF6NHXosByl57FoQVS50mUJUeldopzII/JJKJNPUruFqp287LbKThheuxr3hZ6TF6DjElAD5y411cXEWB1G3eqC3YA5o6FgfDF8VsRZj+hR9Q3j4uyl6J0SlvMtxqF0ju0m7/xUAhJ+mbY9AbD6zfrGJIonenY2N3ez6eKBlsMU/4zRD2UQl3GXZ/BqIVo8/oOeSWqhCM/3RVC4BYOEo+GYY9zmMU7sMo/ioARkimvIZTt3zGQ8ETLqfjylS4TnJ2lnvE7nb9Q9dn5JkPujaIscIbg3U21AENzIkOWt32dNaB39ot8tmsx7U9B0p6Xns90lqpUITcB0cQGhRwmtqvNksnzpNcgczgHjj8l/vTBaSYSG6PJFfM/onElNtol/o2G5PXk="
+
+install:
+  - pip install flake8
+  - pip install -r requirements.txt
+
+before_script:
+  - flake8 pyenvbuilder
+script:
+  - pip install .
+
+after_success:
+  # Build docs
+  - |
+    if [[ $BUILD_DOCS ]]; then
+      echo "Building docs"
+      set -e
+      pip install -r docs-requirements.txt
+      pushd docs
+      make html
+      popd
+    fi
+  # Upload docs
+  - |
+    if [[ -n "$DOCTR_DEPLOY_ENCRYPTION_KEY_SLACLAB_PYENVBUILDER" && $BUILD_DOCS ]]; then
+      echo "Deploying docs"
+      doctr deploy . --built-docs docs/build/html --deploy-branch-name gh-pages
+    fi

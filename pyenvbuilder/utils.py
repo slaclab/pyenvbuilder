@@ -129,10 +129,10 @@ def run_subprocess(commands):
 
     except subprocess.CalledProcessError:
         logger.error(
-            f'Called process returned a non-zero return code')
+            'Called process returned a non-zero return code')
     except subprocess.TimeoutExpiredError:
         logger.error(
-            f'Subprocess, timeout expired before the process exited')
+            'Subprocess, timeout expired before the process exited')
     except KeyboardInterrupt:
         process.send_signal(signal.SIGINT)
         logger.error('Received SIGINT signal, exeting...')
@@ -141,7 +141,7 @@ def run_subprocess(commands):
             f'Subprocess tryig to execute non-existing file: {e}')
     except ValueError:
         logger.error(
-            f'Subprocess, invalid argument passed in')
+            'Subprocess, invalid argument passed in')
     except subprocess.SubprocessError as e:
         logger.error(e)
     finally:
