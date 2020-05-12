@@ -15,9 +15,8 @@ import sys
 import sphinx_rtd_theme
 import pyenvbuilder
 
-module_path = os.path.abspath('..')
+module_path = os.path.abspath('../..')
 sys.path.insert(0, module_path)
-sys.path.insert(0, os.path.join(module_path, 'pyenvbuilder/commands/'))
 
 
 def setup(app):
