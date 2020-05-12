@@ -13,11 +13,11 @@
 import os
 import sys
 import sphinx_rtd_theme
-import pyenvbuilder
 
 module_path = os.path.abspath('../..')
 sys.path.insert(0, module_path)
 
+import pyenvbuilder
 
 def setup(app):
     app.add_css_file(os.path.abspath('_static/theme.css'))

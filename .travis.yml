@@ -21,7 +21,7 @@ install:
 before_script:
   - flake8 pyenvbuilder
 script:
-  - sleep 1
+  - pip install .
 
 after_success:
   # Build docs
