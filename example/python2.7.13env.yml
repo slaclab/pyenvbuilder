@@ -1,0 +1,54 @@
+name: python2.7env
+# This is the version of the environment
+version: "1.0"
+# Packages to be installed with conda. Channel is conda-forge
+conda_packages:
+  - python=2.7.13
+  - alembic
+  - cheetah
+  - click
+  - cothread
+  - cx_Oracle
+  - Flask
+  - ipython
+  - jinja2
+  - jupyter
+  - mako
+  - Markdown
+  - matplotlib
+  - mpmath
+  - numpy
+  - pandas
+  - pickleshare
+  - Pillow
+  - pyca
+  - pydm
+  - pyepics
+  - pyqt=5
+  - pyqtgraph
+  - python-dateutil
+  - python-editor
+  - pytz
+  - PyYAML
+  - qtpy
+  - six
+  - scikit-learn
+  - scipy
+  - snakefood
+  - Sphinx
+  - SQLAlchemy
+  - subprocess32
+  - tabulate
+  - TimeChart
+  - tornado
+  - traitlets
+
+# Packages to be installed with pip. PyPI packages and GitHub urls are accepted
+pip_packages:
+  - backports.shutil-get-terminal-size
+  - backports.ssl-match-hostname
+  - git+git://github.com/slaclab/subprocessca
+  - git+git://github.com/slaclab/slacepics
+
+tests:
+  - python tests/test.py
