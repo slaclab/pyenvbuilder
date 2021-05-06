@@ -1,2 +1,3 @@
+git+git://github.com/slaclab/edmbutton
 matlab-wrapper
-meme
+git+git://github.com/slaclab/meme
