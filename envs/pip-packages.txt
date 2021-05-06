@@ -1,0 +1,3 @@
+git+git://github.com/slaclab/edmbutton
+matlab-wrapper
+git+git://github.com/slaclab/meme

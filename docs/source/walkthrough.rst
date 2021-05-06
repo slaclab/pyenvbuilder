@@ -54,7 +54,7 @@ Local Workflow - Deployment
 
 2. unpack an environenment::
 
-	pip unpack python3.7env_v0.1.tar.gz
+	pyenvbuilder unpack python3.7env_v0.1.tar.gz
 
 After this step you should have an environment called: 
 
