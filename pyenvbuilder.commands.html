@@ -1,39 +1,42 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Commands &mdash; PyEnvBuilder 0.0.0+52.g971a09a documentation</title>
+  <title>Commands &mdash; PyEnvBuilder 0.0.0+57.g6106744 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="/home/travis/build/slaclab/pyenvbuilder/docs/_static/theme.css" type="text/css" />
+
+  
   
 
   
   
-  
+
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="/home/travis/build/slaclab/pyenvbuilder/docs/_static/theme.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Utils" href="utils.html" />
@@ -61,7 +64,7 @@
             
             
               <div class="version">
-                0.0.0+52.g971a09a
+                0.0.0+57.g6106744
               </div>
             
           
@@ -78,6 +81,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -122,6 +126,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -156,18 +161,20 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Commands</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/pyenvbuilder.commands.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -188,16 +195,16 @@
 <p>Blueprint for the commands classes</p>
 <dl class="py class">
 <dt id="pyenvbuilder.commands.interface.Command">
-<em class="property">class </em><code class="sig-prename descclassname">pyenvbuilder.commands.interface.</code><code class="sig-name descname">Command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">summary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.interface.Command" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pyenvbuilder.commands.interface.</span></code><code class="sig-name descname"><span class="pre">Command</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summary</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.interface.Command" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt id="pyenvbuilder.commands.interface.Command.add_args">
-<code class="sig-name descname">add_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.interface.Command.add_args" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_args</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.interface.Command.add_args" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="pyenvbuilder.commands.interface.Command.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.interface.Command.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.interface.Command.run" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -208,28 +215,28 @@
 <p>Class for YAML file validation</p>
 <dl class="py class">
 <dt id="pyenvbuilder.commands.check.Check">
-<em class="property">class </em><code class="sig-prename descclassname">pyenvbuilder.commands.check.</code><code class="sig-name descname">Check</code><a class="headerlink" href="#pyenvbuilder.commands.check.Check" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pyenvbuilder.commands.check.</span></code><code class="sig-name descname"><span class="pre">Check</span></code><a class="headerlink" href="#pyenvbuilder.commands.check.Check" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyenvbuilder.commands.interface.Command" title="pyenvbuilder.commands.interface.Command"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyenvbuilder.commands.interface.Command</span></code></a></p>
 <dl class="py method">
 <dt id="pyenvbuilder.commands.check.Check.add_args">
-<code class="sig-name descname">add_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cmd_parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.check.Check.add_args" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_args</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd_parser</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.check.Check.add_args" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="pyenvbuilder.commands.check.Check.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.check.Check.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.check.Check.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validates if proper files or directories were passed in</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="pyenvbuilder.commands.check.Check.yaml_loader">
-<code class="sig-name descname">yaml_loader</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.check.Check.yaml_loader" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">yaml_loader</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.check.Check.yaml_loader" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads an yaml file and returns its contents</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="pyenvbuilder.commands.check.Check.yaml_validator">
-<code class="sig-name descname">yaml_validator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">yml_file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.check.Check.yaml_validator" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">yaml_validator</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yml_file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.check.Check.yaml_validator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validates and YAML file against a schema
 and returns True if valid, False otherwise</p>
 </dd></dl>
@@ -242,16 +249,16 @@ and returns True if valid, False otherwise</p>
 <p>Class for the create command</p>
 <dl class="py class">
 <dt id="pyenvbuilder.commands.create.Create">
-<em class="property">class </em><code class="sig-prename descclassname">pyenvbuilder.commands.create.</code><code class="sig-name descname">Create</code><a class="headerlink" href="#pyenvbuilder.commands.create.Create" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pyenvbuilder.commands.create.</span></code><code class="sig-name descname"><span class="pre">Create</span></code><a class="headerlink" href="#pyenvbuilder.commands.create.Create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyenvbuilder.commands.interface.Command" title="pyenvbuilder.commands.interface.Command"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyenvbuilder.commands.interface.Command</span></code></a></p>
 <dl class="py method">
 <dt id="pyenvbuilder.commands.create.Create.add_args">
-<code class="sig-name descname">add_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cmd_parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.create.Create.add_args" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_args</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd_parser</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.create.Create.add_args" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="pyenvbuilder.commands.create.Create.check_files">
-<code class="sig-name descname">check_files</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_list</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.create.Create.check_files" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">check_files</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.create.Create.check_files" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validates all the files in the list</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -268,12 +275,12 @@ and returns True if valid, False otherwise</p>
 
 <dl class="py method">
 <dt id="pyenvbuilder.commands.create.Create.conda_create">
-<code class="sig-name descname">conda_create</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.create.Create.conda_create" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">conda_create</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.create.Create.conda_create" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="pyenvbuilder.commands.create.Create.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.create.Create.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.create.Create.run" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -284,16 +291,16 @@ and returns True if valid, False otherwise</p>
 <p>Class for the pack-command</p>
 <dl class="py class">
 <dt id="pyenvbuilder.commands.pack.Pack">
-<em class="property">class </em><code class="sig-prename descclassname">pyenvbuilder.commands.pack.</code><code class="sig-name descname">Pack</code><a class="headerlink" href="#pyenvbuilder.commands.pack.Pack" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pyenvbuilder.commands.pack.</span></code><code class="sig-name descname"><span class="pre">Pack</span></code><a class="headerlink" href="#pyenvbuilder.commands.pack.Pack" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyenvbuilder.commands.interface.Command" title="pyenvbuilder.commands.interface.Command"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyenvbuilder.commands.interface.Command</span></code></a></p>
 <dl class="py method">
 <dt id="pyenvbuilder.commands.pack.Pack.add_args">
-<code class="sig-name descname">add_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cmd_parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.pack.Pack.add_args" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_args</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd_parser</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.pack.Pack.add_args" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="pyenvbuilder.commands.pack.Pack.conda_pack">
-<code class="sig-name descname">conda_pack</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">env</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.pack.Pack.conda_pack" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">conda_pack</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.pack.Pack.conda_pack" title="Permalink to this definition">¶</a></dt>
 <dd><p>Packs an environment into a tarball</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -304,7 +311,7 @@ and returns True if valid, False otherwise</p>
 
 <dl class="py method">
 <dt id="pyenvbuilder.commands.pack.Pack.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.pack.Pack.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.pack.Pack.run" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -315,21 +322,21 @@ and returns True if valid, False otherwise</p>
 <p>Class for the pack-command</p>
 <dl class="py class">
 <dt id="pyenvbuilder.commands.unpack.Unpack">
-<em class="property">class </em><code class="sig-prename descclassname">pyenvbuilder.commands.unpack.</code><code class="sig-name descname">Unpack</code><a class="headerlink" href="#pyenvbuilder.commands.unpack.Unpack" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pyenvbuilder.commands.unpack.</span></code><code class="sig-name descname"><span class="pre">Unpack</span></code><a class="headerlink" href="#pyenvbuilder.commands.unpack.Unpack" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyenvbuilder.commands.interface.Command" title="pyenvbuilder.commands.interface.Command"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyenvbuilder.commands.interface.Command</span></code></a></p>
 <dl class="py method">
 <dt id="pyenvbuilder.commands.unpack.Unpack.add_args">
-<code class="sig-name descname">add_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cmd_parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.unpack.Unpack.add_args" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_args</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd_parser</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.unpack.Unpack.add_args" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="pyenvbuilder.commands.unpack.Unpack.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.unpack.Unpack.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.unpack.Unpack.run" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="pyenvbuilder.commands.unpack.Unpack.unpack">
-<code class="sig-name descname">unpack</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">env</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.unpack.Unpack.unpack" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">unpack</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyenvbuilder.commands.unpack.Unpack.unpack" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unpacks an environment from a tarball</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -348,29 +355,29 @@ and returns True if valid, False otherwise</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="utils.html" class="btn btn-neutral float-right" title="Utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="walkthrough.html" class="btn btn-neutral float-left" title="PyEnvBuilder Walk-through" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="utils.html" class="btn btn-neutral float-right" title="Utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="walkthrough.html" class="btn btn-neutral float-left" title="PyEnvBuilder Walk-through" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, SLAC National Accelerator Laboratory
+        &#169; Copyright 2020, SLAC National Accelerator Laboratory.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -378,7 +385,6 @@ and returns True if valid, False otherwise</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
