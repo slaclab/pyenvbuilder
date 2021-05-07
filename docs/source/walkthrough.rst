@@ -28,8 +28,17 @@ Simple YAML file contents example::
 4. create the environment *my_env.yml*::
 
 	pyenvbuilder create my_env.yml
+	
+   * When creating an environment we also have a few options, for example if we do not have any tests or we do not want to run tests we could use this::
+   
+  	pyenvbuilder create --skip-tests my_env.yml
+  	
+   * We could also specify a directory where to create the environment (by default it will create it in the current directory)::
+   
+  	pyenvbuilder create  --dest my_env.yml
 
-After this you should have an environment called:
+
+After this we should have an environment called:
 
 	**python3.7env_v0.1**
 
@@ -37,6 +46,17 @@ After this you should have an environment called:
 5. pack the environment::
 
 	pyenvbuilder pack python3.7env_v0.1
+
+
+   * When packing an environment by default it will remove the acutall environment after packing it, to keep the environment we would have to do this::
+    
+    	pyenvbuilder pack --keep-env python3.7env_v0.1
+    	  
+
+   * We can also provide a destination where we want the tarball to go::
+    
+  	pyenvbuilder pack  --dest python3.7env_v0.1
+
 
 This step will pack the environment into a tarball:
 
